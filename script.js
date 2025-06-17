@@ -394,3 +394,19 @@ function kirimWaktuRealtimeKeFirebase() {
 // Send time to Firebase every 10 minutes
 setInterval(kirimWaktuRealtimeKeFirebase, 600000);
 
+// Fungsi untuk kirim waktu saat ini ke Firebase
+function kirimWaktuKeFirebase() {
+  const now = new Date();
+  const jam = now.getHours().toString().padStart(2, '0');
+  const menit = now.getMinutes().toString().padStart(2, '0');
+  const waktuStr = `${jam}:${menit}`;
+
+  set(ref(database, 'kontrol/waktu_client/jam_str'), waktuStr)
+    .then(() => {
+      console.log("Waktu berhasil dikirim ke Firebase:", waktuStr);
+    })
+    .catch((error) => {
+      console.error("Gagal mengirim waktu ke Firebase:", error);
+    });
+}
+
