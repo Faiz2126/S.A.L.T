@@ -2,7 +2,6 @@ import { initializeApp } from "https://www.gstatic.com/firebasejs/9.22.1/firebas
 import {
   getDatabase, ref, onValue, set, push
 } from "https://www.gstatic.com/firebasejs/9.22.1/firebase-database.js";
-
 // Konfigurasi Firebase
 const firebaseConfig = {
   apiKey: "AIzaSyBtGBU74bUbAy0lL-2wrFN_BY7_FBWF-Vw",
@@ -11,7 +10,6 @@ const firebaseConfig = {
 
 const app = initializeApp(firebaseConfig);
 const db = getDatabase(app);
-
 // Elemen DOM (for index.html)
 const suhuEl = document.getElementById("suhu");
 const kelembabanEl = document.getElementById("kelembaban");
@@ -22,13 +20,11 @@ const kipasSwitch = document.getElementById("kipasSwitch");
 const ledSwitch = document.getElementById("ledSwitch");
 const modeSwitch = document.getElementById("modeSwitch");
 const modeStatusLabel = document.getElementById("modeStatusLabel");
-
 // Visual Bars
 const suhuBarFill = document.getElementById('suhuBarFill');
 const suhuBarValue = document.getElementById('suhuBarValue');
 const kelembabanBarFill = document.getElementById('kelembabanBarFill');
 const kelembabanBarValue = document.getElementById('kelembabanBarValue');
-
 // Data grafik
 const waktuLog = [];
 const suhuLog = [];
@@ -39,7 +35,6 @@ let chart = null; // Initialize chart as null, will be assigned when context is 
 let kipasStateLast = null;
 let ledStateLast = null;
 let modeOtomatis = true;
-
 // --- Functions for Visual Bars ---
 function updateVisualBar(value, fillElement, valueElement, minVal, maxVal, unit) {
     if (!fillElement || !valueElement) return; // Ensure elements exist
@@ -58,7 +53,6 @@ function updateVisualBar(value, fillElement, valueElement, minVal, maxVal, unit)
         const parentWidth = trackElement.offsetWidth;
         const valueTextWidth = valueElement.offsetWidth;
         let textPosition = (percentage / 100) * parentWidth;
-
         // Adjust position to keep text within bounds
         if (textPosition < valueTextWidth / 2) {
             textPosition = valueTextWidth / 2;
@@ -69,8 +63,6 @@ function updateVisualBar(value, fillElement, valueElement, minVal, maxVal, unit)
         valueElement.style.transform = `translateX(-50%)`;
     }
 }
-
-
 // --- Realtime Firebase updates (for index.html and shared) ---
 // These listeners run regardless of the page, but UI updates are conditional
 onValue(ref(db, '/sensor/suhu'), (snap) => {
@@ -159,8 +151,6 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     }
 });
-
-
 // --- Logic for ESP32-CAM Message Storage ---
 let lastStoredEsp32CamMessage = null; // Keep track of the last stored message
 
@@ -283,7 +273,6 @@ function tampilkanDataChart(logs) {
         chart.update();
     }
 }
-
 // --- Initial Load Logic and Chart Initialization ---
 document.addEventListener("DOMContentLoaded", () => {
     // Highlight active nav link
@@ -299,7 +288,6 @@ document.addEventListener("DOMContentLoaded", () => {
             link.classList.remove('active');
         }
     });
-
     // Initialize components based on the current page
     const chartCanvas = document.getElementById("chart");
     const rangeSelector = document.getElementById("rangeSelector");
@@ -398,14 +386,11 @@ document.addEventListener("DOMContentLoaded", () => {
     // Always send client time to Firebase
     kirimWaktuRealtimeKeFirebase();
 });
-
-
 // Interval Functions
 function kirimWaktuRealtimeKeFirebase() {
   set(ref(db, '/kontrol/waktu_client'), { timestamp: Date.now() })
     .catch((err) => console.error('Failed to send time:', err));
 }
-
 // Send time to Firebase every 10 minutes
 setInterval(kirimWaktuRealtimeKeFirebase, 600000);
 
