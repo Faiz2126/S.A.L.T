@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>AeroFarm Elite - Sensor History</title>
+  <link rel="stylesheet" href="style.css" />
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+  <div class="background-gradient"></div>
+  
+  <header>
+    <div class="header-content">
+      <h1>S.A.L.T EYE</h1>
+      <p>Real-time Environmental Monitoring & Control</p>
+    </div>
+    <nav class="navbar">
+      <ul>
+        <li><a href="index.html">Overview</a></li>
+        <li><a href="chart.html" class="active">Sensor History</a></li>
+        <li><a href="esp32cam_data.html">ESP32-CAM Data</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main>
+    <section class="chart-section card full-width-card">
+      <div class="chart-header">
+        <h2>Sensor History</h2>
+        <div class="chart-controls">
+          <select id="rangeSelector">
+            <option value="7" selected>Last 7 Days</option>
+            <option value="14">Last 14 Days</option>
+            <option value="30">Last 30 Days</option>
+          </select>
+          <button id="resetButton">Reset</button>
+        </div>
+      </div>
+      <div class="chart-wrapper">
+          <canvas id="chart"></canvas>
+      </div>
+    </section>
+  </main>
+  
+  <script src="script.js" type="module"></script>
+</body>
+</html>

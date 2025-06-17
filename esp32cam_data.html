@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>AeroFarm Elite - ESP32-CAM Data</title>
+  <link rel="stylesheet" href="style.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+  <div class="background-gradient"></div>
+  
+  <header>
+    <div class="header-content">
+      <h1>S.A.L.T EYE</h1>
+      <p>Real-time Environmental Monitoring & Control</p>
+    </div>
+    <nav class="navbar">
+      <ul>
+        <li><a href="index.html">Overview</a></li>
+        <li><a href="chart.html">Sensor History</a></li>
+        <li><a href="esp32cam_data.html" class="active">ESP32-CAM Data</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main>
+    <section class="esp32cam-data-section card full-width-card">
+      <h2>ESP32-CAM Messages</h2>
+      <div class="esp32cam-messages-container" id="esp32camMessages">
+        <p>No messages recorded yet.</p>
+      </div>
+      <button id="clearEsp32CamData" class="clear-button">Clear All Messages</button>
+    </section>
+  </main>
+  
+  <script src="script.js" type="module"></script>
+</body>
+</html>

@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>AeroFarm Elite Dashboard</title>
+  <link rel="stylesheet" href="style.css" />
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+  <div class="background-gradient"></div>
+  
+  <header>
+    <div class="header-content">
+      <h1>S.A.L.T EYE</h1>
+      <p>Real-time Environmental Monitoring & Control</p>
+    </div>
+    <nav class="navbar">
+      <ul>
+        <li><a href="index.html" class="active">Overview</a></li>
+        <li><a href="chart.html">Sensor History</a></li>
+        <li><a href="esp32cam_data.html">ESP32-CAM Data</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main>
+    <section class="card-container">
+      <div class="card">
+        <div class="card-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 4v10.54a4 4 0 1 1-4 0V4a2 2 0 0 1 4 0Z"/></svg>
+        </div>
+        <h3>Suhu</h3>
+        <p id="suhu">-- °C</p>
+        <div class="visual-bar-container">
+            <div class="visual-bar-label">Min: 18°C</div>
+            <div class="visual-bar-label">Max: 26°C</div>
+            <div class="visual-bar-track">
+                <div class="visual-bar-fill" id="suhuBarFill"></div>
+                <div class="visual-bar-safe-zone suhu-safe-zone"></div>
+            </div>
+            <div class="visual-bar-current-value" id="suhuBarValue"></div>
+        </div>
+      </div>
+      <div class="card">
+         <div class="card-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 18a3 3 0 0 0 6 0c0-1.66-1.34-3-3-3s-3 1.34-3 3Z"/><path d="M19 18a3 3 0 0 0 6 0c0-1.66-1.34-3-3-3s-3 1.34-3 3Z"/><path d="M12 2v10.54a4 4 0 1 1-4 0V2a2 2 0 0 1 4 0Z"/><path d="M12 18a3 3 0 0 0 6 0c0-1.66-1.34-3-3-3s-3 1.34-3 3Z"/></svg>
+        </div>
+        <h3>Kelembaban</h3>
+        <p id="kelembaban">-- %</p>
+        <div class="visual-bar-container">
+            <div class="visual-bar-label">Min: 80%</div>
+            <div class="visual-bar-label">Max: 90%</div>
+            <div class="visual-bar-track">
+                <div class="visual-bar-fill" id="kelembabanBarFill"></div>
+                <div class="visual-bar-safe-zone kelembaban-safe-zone"></div>
+            </div>
+            <div class="visual-bar-current-value" id="kelembabanBarValue"></div>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m21.54 11.46-6.34-6.34a2 2 0 0 0-2.82 0L3.34 14.16a2 2 0 0 0 0 2.82l6.34 6.34a2 2 0 0 0 2.82 0l8.04-8.04a2 2 0 0 0 0-2.82Z"/><path d="M8 12h8"/><path d="M12 8v8"/></svg>
+        </div>
+        <h3>Water Flow</h3>
+        <p id="water">--</p>
+      </div>
+      <div class="card">
+        <div class="card-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m12 18-6-6 6-6"/><path d="m18 18-6-6 6-6"/></svg>
+        </div>
+        <h3>Pesan ESP32-CAM</h3>
+        <p id="pesan">--</p>
+      </div>
+    </section>
+
+    <section class="main-content-grid">
+      <div class="control-section card">
+        <h2>System Control</h2>
+        <div class="switch-container">
+          <label class="switch-label">
+            <span>Mode</span>
+            <span id="modeStatusLabel">Otomatis</span>
+          </label>
+          <label class="switch">
+            <input type="checkbox" id="modeSwitch" checked />
+            <span class="slider"></span>
+          </label>
+        </div>
+        <div class="switch-container">
+          <label class="switch-label">
+            <span>Kipas (Blower)</span>
+          </label>
+          <label class="switch">
+            <input type="checkbox" id="kipasSwitch" />
+            <span class="slider"></span>
+          </label>
+        </div>
+        <div class="switch-container">
+          <label class="switch-label">
+           <span>LED Grow Light</span>
+          </label>
+          <label class="switch">
+            <input type="checkbox" id="ledSwitch" />
+            <span class="slider"></span>
+          </label>
+        </div>
+      </div>
+
+      <div class="chart-section card">
+        <div class="chart-header">
+          <h2>Sensor History</h2>
+          <div class="chart-controls">
+            <select id="rangeSelector">
+              <option value="7" selected>Last 7 Days</option>
+              <option value="14">Last 14 Days</option>
+              <option value="30">Last 30 Days</option>
+            </select>
+            <button id="resetButton">Reset</button>
+          </div>
+        </div>
+        <div class="chart-wrapper">
+            <canvas id="chart"></canvas>
+        </div>
+      </div>
+      </section>
+  </main>
+  
+  <script src="script.js" type="module"></script>
+</body>
+</html>
